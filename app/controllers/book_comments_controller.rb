@@ -4,6 +4,7 @@ class BookCommentsController < ApplicationController
     @comment = current_user.book_comments.new(book_comment_params)
     @comment.book_id = @book.id
     @comment.save
+
   end
 
   def destroy
@@ -13,7 +14,7 @@ class BookCommentsController < ApplicationController
   private
 
   def book_comment_params
-    params.require(:book_comment).permit(:comment)
+    params.require(:book_comment).permit(:comment,:user_id,:book_id)
   end
 
 end

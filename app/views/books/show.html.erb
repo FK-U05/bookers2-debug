@@ -55,11 +55,13 @@
       </td>
      </tr>
     </table>
+
     <div class="new-comment">
     <%= render 'book_comments/comment', book: @book %>
     </div>
+
     <div id="comments-area_<%= @book.id %>">
-    <%= render 'book_comments/form', book: @book,book_comment: @book_comment %>
+    <%= render 'book_comments/form', book: @book, book_comment: @book_comment %>
     </div>
 
   </div>

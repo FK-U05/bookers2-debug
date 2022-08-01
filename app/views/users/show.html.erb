@@ -10,12 +10,7 @@
       <h2>Books</h2>
        <table class="table table-hover table-inverse">
         <%= render 'books/index',books: @books %>
-        <td id="favorite_buttons_<%= @book.id %>">
-　　    <%= render "favorites/favorite", book: @book %>
-　　    </td>
-        <td>
-        コメント数 : <%= book.book_comments.count %>
-        </td>
+
 
        </table>
     </div>

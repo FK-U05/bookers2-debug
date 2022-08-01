@@ -7,9 +7,9 @@ class Book < ApplicationRecord
   validates :body,presence:true,length:{maximum:200}
 
   def favorited_by?(user)
-    favorites.exists?(user_id:user.id)
+    favorites.exists?(user_id: user.id)
   end
-
+  
   def self.looks(search, word)
     if search == "perfect_match"
       @book = Book.where("title LIKE?","#{word}")
