@@ -8,6 +8,8 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
+       <%= link_to '新しい順', books_path(new: "true") %>|
+       <%= link_to '評価の高い順', books_path(star: "true") %>
        <table class="table table-hover table-inverse">
          <%= render 'index', books: @books %>
        </table>
