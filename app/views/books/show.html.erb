@@ -14,6 +14,23 @@
         <%= f.label :opinion %>
         <%= f.text_area :body, class: 'form-control book_body' %>
        </div>
+       
+       <div class="form-group" id="star">
+        <%= f.label :star, 'Raty' %>
+        <%= f.hidden_field :star, id: :review_star %>
+       </div>
+
+       <script>
+       $('#star').raty({
+         size     : 36,
+         starOff:  '<%= asset_path('star-off.png') %>',
+         starOn : '<%= asset_path('star-on.png') %>',
+    
+         scoreName: 'book[star]',
+         half: false,
+       });
+       </script>
+       
        <div class="form-group">
         <%= f.submit class: 'btn btn-success' %>
        </div>
@@ -26,18 +43,19 @@
      <tr>
       <td>
        <%= link_to(@book.user) do %>
-       <%= image_tag @book.user.get_profile_image, size:"100x100" %><br>
+       <%= image_tag @book.user.get_profile_image, size: '50x50' %><br>
        <%= @book.user.name %>
        <% end %>
       </td>
       <td>
        <%= link_to @book.title, @book %>
       </td>
+
       <td>
        <%= @book.body %>
       </td>
 
-      <td id="favorite_buttons_<%= @book.id %>">
+      <td class="favorite_buttons_<%= @book.id %>">
        <%= render "favorites/favorite", book: @book %>
       </td>
 
@@ -45,6 +63,23 @@
       <td>
        コメント数 : <%= @book.book_comments.count %>
       </td>
+
+      <td>
+      <div class="star-rate">
+       <div id="star-rate-<%= @book.id %>"></div>
+      <script>
+      $('#star-rate-<%= @book.id %>').raty({
+        size      : 36,
+        starOff   : '<%= asset_path('star-off.png') %>',
+        starOn    : '<%= asset_path('star-on.png') %>',
+        half      : false,
+        readOnly: true,
+        score: <%= @book.star %>,
+      });
+     </script>
+     </div>
+     </td>
+
        <% if @user == current_user %>
       <td>
        <%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %>

@@ -1,5 +1,5 @@
 <table class="table">
-  <tr><%= image_tag user.get_profile_image, size:'100x100' %></tr>
+  <tr><%= image_tag user.get_profile_image, size: '50x50' %></tr>
   <tr>
 	  <th>name</th>
 	  <th><%= user.name %></th>
@@ -23,21 +23,23 @@
 </table>
 
 <div class="row">
-  <% if (user.id != current_user.id) && current_user.following?(user) %>
+  <% if user.id != current_user.id %>
+   <% if current_user.following?(user) %>
 
-  <%= link_to user_relationships_path(user.id), method: :delete, class: "btn btn-info" do %>
-  <%= "フォロー外す" %>
-  <% end %>
+    <%= link_to user_relationships_path(user.id), method: :delete, class: "btn btn-info" do %>
+    <%= "フォロー外す" %>
+    <% end %>
 
-  <% elsif user.id != current_user.id %>
-  <%= link_to user_relationships_path(user.id), method: :post, class: "btn btn-success" do %>
-  <%= "フォローする" %>
-  <% end %>
+    <% elsif user.id != current_user.id %>
+    <%= link_to user_relationships_path(user.id), method: :post, class: "btn btn-success" do %>
+    <%= "フォローする" %>
+    <% end %>
+   <% end %>
 
   <% else %>
-  <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
+   <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
     <i class="fas fa-user-cog"></i>
-  <% end %>
+   <% end %>
 
   <% end %>
 
