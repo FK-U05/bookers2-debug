@@ -3,7 +3,6 @@
   <div class='col-md-3'>
    <h2>User info</h2>
     <%= render 'users/info',user: @user %>
-
      <h2 class="mt-3">New book</h2>
       <%= form_with model: @bookd,local:true do |f| %>
        <div class="form-group">
@@ -15,8 +14,12 @@
         <%= f.text_area :body, class: 'form-control book_body' %>
        </div>
 
+       <div class="form-group">
+        <%= f.label :tag %>
+        <%= f.text_field :tag, class: 'form-control book_tag' %>
+       </div>
+
        <div class="form-group" id="star">
-        <%= f.label :star, 'Raty' %>
         <%= f.hidden_field :star, id: :review_star %>
        </div>
 
@@ -53,6 +56,12 @@
 
       <td>
        <%= @book.body %>
+      </td>
+
+      <td>
+       <%= link_to book_path(@book) do %>
+       <%= @book.tag %>
+       <% end %>
       </td>
 
       <td class="favorite_buttons_<%= @book.id %>">
@@ -95,7 +104,7 @@
     <%= render 'book_comments/comment', book: @book %>
     </div>
 
-    <div id="comments-area_<%= @book.id %>">
+    <div class="comments-area_<%= @book.id %>">
     <%= render 'book_comments/form', book: @book, book_comment: @book_comment %>
     </div>
 

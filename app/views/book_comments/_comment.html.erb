@@ -1,5 +1,6 @@
-<% book.book_comments.each do |book_comment| %>
- <table>
+<table>
+  <tbody>
+   <% book.book_comments.each do |book_comment| %>
   <tr>
    <td>
     <%= image_tag book_comment.user.get_profile_image,size: '50×50' %>
@@ -13,5 +14,7 @@
     <% end %>
    </td>
   </tr>
+  <% end %>
+  </tbody>
  </table>
-<% end %>
+
