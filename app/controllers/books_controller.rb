@@ -5,6 +5,7 @@ class BooksController < ApplicationController
     @user=@book.user
     @bookd=Book.new
     @book_comment=BookComment.new
+    @book_tags = @book.tags
   end
 
   def index
@@ -16,18 +17,22 @@ class BooksController < ApplicationController
     @books = Book.all
     end
     @book=Book.new
+    @tag_list = Tag.all
   end
 
   def create
     @book = Book.new(book_params)
+    tag_list=params[:book][:tag_name].split(',')
     @book.user_id = current_user.id
     @bookd=Book.new
     if @book.save
+      @book.save_tag(tag_list)
       redirect_to book_path(@book), notice: "You have created book successfully."
     else
       @books = Book.all
       render "index"
     end
+
   end
 
   def edit
@@ -52,9 +57,16 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
 
+  def search
+    @tag_list = Tag.all
+    @tag = Tag.find(params[:tag_id])
+    @books=@tag.books.all
+  end
+
   private
 
   def book_params
-    params.require(:book).permit(:title,:body,:star,:tag)
+    params.require(:book).permit(:title,:body,:star,:tag_name)
   end
+
 end

@@ -16,7 +16,7 @@
 
        <div class="form-group">
         <%= f.label :tag %>
-        <%= f.text_field :tag, class: 'form-control book_tag' %>
+        <%= f.text_field :tag_name, class: 'form-control book_tag' %>
        </div>
 
        <div class="form-group" id="star">
@@ -59,8 +59,8 @@
       </td>
 
       <td>
-       <%= link_to book_path(@book) do %>
-       <%= @book.tag %>
+       <%= link_to tag_books_path(tag_id: tag.id) do %>
+       <%= @book.tag_name %>
        <% end %>
       </td>
 

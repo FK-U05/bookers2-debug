@@ -1,0 +1,57 @@
+<h2>Books search for <%= params[:word] %> </h2>
+<thead>
+  <tr>
+    <th></th>
+    <th>Title</th>
+    <th>Opinion</th>
+    <th>Tag</th>
+  </tr>
+</thead>
+<tbody>
+
+  <% @tag_list.each do |list|%>
+  <tr>
+    <td>
+      <%= image_tag list.user.get_profile_image,size: '50x50' %>
+    </td>
+    <td>
+      <%= link_to book_path(list.book) do %>
+      <%= list.book.title %>
+      <% end %>
+    </td>
+    <td>
+      <%= list.book.body %>
+    </td>
+    <td>
+      <%= link_to tag_books_path(tag_id: list.id) do %>
+      <%= list.tag_name %>
+      <% end %>
+    </td>
+    <td class="favorite_buttons_<%= @book.id %>">
+     <%= render 'favorites/favorite', book: @book %>
+    </td>
+    <td>
+     コメント数 : <%= @book.book_comments.count %>
+    </td>
+    <td>
+      <div class="star-rate">
+        <div id="star-rate-<%= @book.id %>"></div>
+         <script>
+           $('#star-rate-<%= @book.id %>').raty({
+             size      : 36,
+             starOff   : '<%= asset_path('star-off.png') %>',
+             starOn    : '<%= asset_path('star-on.png') %>',
+             half      : false,
+             readOnly: true,
+             score: <%= book.star %>,
+           });
+         </script>
+        </div>
+     </td>
+  </tr>
+<% end %>
+
+</tbody>
+
+
+
