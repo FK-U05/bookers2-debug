@@ -23,8 +23,10 @@
     <%= book.body %>
     </td>
     <td>
-     <%= link_to tag_books_path(tag_id: tag.id) do %>
-     <%= book.tag_name %>
+     <% book.tags.each do |tag| %>
+     <%= link_to search_path(word: tag.tag_name, model:"tag", method: "perfect") do %>
+     <%= tag.tag_name %>
+     <% end %>
      <% end %>
     </td>
    <td class="favorite_buttons_<%= book.id %>">

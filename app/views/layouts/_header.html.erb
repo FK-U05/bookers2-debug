@@ -62,8 +62,11 @@
       <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
       <%= f.submit "検索", class: "btn btn-light" %>
     <% end %>
-    <%= form_with url: tag_books_path(tag_id: tag.id),local: true, method: :get do |f| %>
+
+    <%= form_with url: search_path,local: true, method: :get do |f| %>
       <%= f.text_field :word %>
+      <%= f.hidden_field :model, :value => "tag"  %>
+      <%= f.hidden_field :method, :value => "perfect" %>
       <%= f.submit "タグ検索", class: "btn btn-light" %>
     <% end %>
   </div>
