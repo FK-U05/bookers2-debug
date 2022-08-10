@@ -1,4 +1,3 @@
-
 <h2>Books search for <%= params[:word] %> </h2>
 
 <table class="table table-hover table-inverse">
@@ -14,16 +13,19 @@
       </tr>
   </thead>
   <tbody>
+    <!-- 検索結果のusersの中から一つ一つ並べるためのeach -->
     <% @users.each do |user| %>
       <tr>
+        <!--検索結果のユーザーのプロフィールと名前とshowリンク-->
         <td><%= image_tag user.get_profile_image,size: '50x50' %></td>
         <td><%= user.name %></td>
         <td><%= link_to 'Show',user_path(user) %></td>
       </tr>
+    <!-- users.eachのend -->
     <% end %>
   </tbody>
   <!-- bookを範囲に選んだら -->
-  <% elsif @range == "Book" || @model == 'tag' %>
+  <% else%>
     <thead>
       <tr>
         <th></th>
@@ -33,33 +35,44 @@
       </tr>
     </thead>
     <tbody>
+      <!-- 検索結果のbooksの中から一つずつ並べる意味のeach -->
     <% @books.each do |book| %>
       <tr>
         <td>
+          <!-- そのbookを投稿したユーザーのプロフィール-->
          <%= image_tag book.user.get_profile_image,size: '50x50' %>
         </td>
         <td>
+          <!-- bookのタイトル -->
          <%= link_to book_path(book) do %>
          <%= book.title %>
          <% end %>
         </td>
         <td>
+          <!-- bookのopinion -->
           <%= book.body %>
         </td>
         <td>
+          <!-- bookについてるタグが複数あれば一つずつ出すためのeach -->
           <% book.tags.each do |tag| %>
-          <%= link_to search_path(word: tag.tag_name, model:"tag", method: "perfect") do %>
+          <%= link_to tag_books_path(tag_id: tag.id) do %>
+          <!-- tags.eachの中なのでtag.tag_name -->
           <%= tag.tag_name %>
+          <!-- link doのend -->
           <% end %>
+          <!-- tags.eachのend -->
           <% end %>
         </td>
+        <!-- books.eachの中でのbookに対するいいねボタン-->
         <td class="favorite_buttons_<%= book.id %>">
          <%= render 'favorites/favorite', book: book %>
         </td>
         <td>
+          <!-- bookへのコメントの数 -->
          コメント数 : <%= book.book_comments.count %>
         </td>
         <td>
+          <!-- bookへの星評価 -->
           <div class="star-rate">
             <div id="star-rate-<%= book.id %>"></div>
              <script>
@@ -75,11 +88,8 @@
             </div>
          </td>
         </tr>
+        <!-- books.each分の終わり -->
         <% end %>
-         <!-- books.each分の終わり　-->
     </tbody>
-     <% end %>
-     <!-- if構文の終わり-->
-</table>
-
-
+    <!-- if構文の終わりend -->
+ <% end %>

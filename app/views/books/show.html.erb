@@ -13,7 +13,7 @@
         <%= f.label :opinion %>
         <%= f.text_area :body, class: 'form-control book_body' %>
        </div>
-
+       <!--タグ投稿フォーム-->
        <div class="form-group">
         <%= f.label :tag %>
         <%= f.text_field :tag_name, class: 'form-control book_tag' %>
@@ -39,45 +39,58 @@
        </div>
       <% end %>
   </div>
-
+  <!-- 投稿された本の詳細-->
   <div class='col-md-8 offset-md-1'>
    <h2>Book detail</h2>
     <table class='table'>
      <tr>
       <td>
+       <!-- 投稿された本の投稿ユーザーを表示 -->
        <%= link_to(@book.user) do %>
        <%= image_tag @book.user.get_profile_image, size: '50x50' %><br>
        <%= @book.user.name %>
        <% end %>
       </td>
       <td>
+       <!--投稿された本のタイトルを表示-->
        <%= link_to @book.title, @book %>
       </td>
 
       <td>
+       <!-- 投稿された本のopinionを表示-->
        <%= @book.body %>
       </td>
 
       <td>
+       <!-- 投稿された本のタグを複数ある場合に備えてeachで一つ一つ並べる-->
        <% @book.tags.each do |tag| %>
-       <%= link_to search_path(word: tag.tag_name, model:"tag", method: "perfect") do %>
+       <!-- リンク先はbooksコントローラーのsearchアクションいき-->
+       <%= link_to tag_books_path(tag_id: tag.id) do %>
        <%= tag.tag_name %>
+       <!-- link doのend -->
        <% end %>
+       <!-- tag.eachのend -->
        <% end %>
       </td>
 
-      <td class="favorite_buttons_<%= @book.id %>">
+      <td>
+       <div class="favorite_buttons_<%= @book.id %>">
+      <td class=<%= "favorite-" + @book.id.to_s %> >
        <%= render "favorites/favorite", book: @book %>
       </td>
 
-
-      <td>
-       コメント数 : <%= @book.book_comments.count %>
+      <td class="book_comments_counter">
+       <% render "book_comments/counter", book: @book %>
       </td>
 
       <td>
+       <!--星評価をjavaで入れる-->
       <div class="star-rate">
+       <!-- どの投稿に対する評価なのかをidを持たせて判別-->
        <div id="star-rate-<%= @book.id %>"></div>
+       <!-- #star-rate...は上で持たせたid名、クラスだったら.始まり-->
+       <!-- readonlyで読み込み専用にし、編集できないようにする-->
+       <!-- scoreオプションで評価内容を取得-->
       <script>
       $('#star-rate-<%= @book.id %>').raty({
         size      : 36,
@@ -90,23 +103,23 @@
      </script>
      </div>
      </td>
-
+       <!-- 今ログインしているユーザーと投稿ユーザーが同一人物同じIDなら-->
        <% if @user == current_user %>
       <td>
        <%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %>
       </td>
       <td>
-       <%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
-       <% end %>
+       <%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？'}, class: "btn btn-sm btn-danger" %>
       </td>
+      <% end %>
      </tr>
     </table>
-
+    <!-- コメント一覧 -->
     <div class="new-comment">
     <%= render 'book_comments/comment', book: @book %>
     </div>
-
-    <div class="comments-area_<%= @book.id %>">
+    <!-- コメントフォーム-->
+    <div class="comments-area">
     <%= render 'book_comments/form', book: @book, book_comment: @book_comment %>
     </div>
 

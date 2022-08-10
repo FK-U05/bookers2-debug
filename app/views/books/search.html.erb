@@ -1,4 +1,5 @@
-<h2>Books search for <%= params[:word] %> </h2>
+<h2>Books search for <%= @tag.tag_name %> </h2>
+<table class="table table-hover table-inverse">
 <thead>
   <tr>
     <th></th>
@@ -8,36 +9,45 @@
   </tr>
 </thead>
 <tbody>
-
-  <% @tag_list.each do |list|%>
+ <!--投稿一覧を表示する -->
+  <% @books.each do |book| %>
   <tr>
     <td>
-      <%= image_tag list.user.get_profile_image,size: '50x50' %>
+      <!-- それを投稿したユーザーのプロフィール -->
+      <%= image_tag book.user.get_profile_image,size: '50x50' %>
     </td>
     <td>
-      <%= link_to book_path(list.book) do %>
-      <%= list.book.title %>
+      <!-- 投稿された本のタイトル -->
+      <%= link_to book_path(book) do %>
+      <%= book.title %>
       <% end %>
     </td>
     <td>
-      <%= list.book.body %>
+      <!-- 投稿された本の内容 -->
+      <%= book.body %>
     </td>
     <td>
-      <%= link_to tag_books_path(tag_id: list.id) do %>
-      <%= list.tag_name %>
+      <!-- 投稿された本についてるタグ(複数に備えてeach）とリンク -->
+      <% book.tags.each do |tag| %>
+      <%= link_to tag_books_path(tag_id: tag.id) do %>
+      <%= tag.tag_name %>
+      <% end %>
       <% end %>
     </td>
-    <td class="favorite_buttons_<%= @book.id %>">
-     <%= render 'favorites/favorite', book: @book %>
+    <!-- 投稿された本をいいねするボタン -->
+    <td class="favorite_buttons_<%= book.id %>">
+     <%= render 'favorites/favorite', book: book %>
     </td>
     <td>
-     コメント数 : <%= @book.book_comments.count %>
+      <!-- 投稿された本に付けられているコメントの数 -->
+     コメント数 : <%= book.book_comments.count %>
     </td>
     <td>
+      <!-- 投稿された本に付けられている星評価 -->
       <div class="star-rate">
-        <div id="star-rate-<%= @book.id %>"></div>
+        <div id="star-rate-<%= book.id %>"></div>
          <script>
-           $('#star-rate-<%= @book.id %>').raty({
+           $('#star-rate-<%= book.id %>').raty({
              size      : 36,
              starOff   : '<%= asset_path('star-off.png') %>',
              starOn    : '<%= asset_path('star-on.png') %>',
@@ -49,9 +59,11 @@
         </div>
      </td>
   </tr>
+  <!-- 投稿一覧表示のための@books.eachへのend -->
 <% end %>
 
 </tbody>
+</table>
 
 
 

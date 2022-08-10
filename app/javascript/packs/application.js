@@ -16,6 +16,8 @@ import "jquery.raty.js"
 
 window.jQuery = window.$ = require('jquery')
 require("/raty")
+//= require jquery
+//= require jquery_ujs
 
 Rails.start()
 Turbolinks.start()

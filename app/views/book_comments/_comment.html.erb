@@ -3,14 +3,18 @@
    <% book.book_comments.each do |book_comment| %>
   <tr>
    <td>
+    <!-- コメントしたユーザーのプロフィール -->
     <%= image_tag book_comment.user.get_profile_image,size: '50×50' %>
    </td>
    <td>
+    <!-- コメントの内容-->
     <%= book_comment.comment %>
    </td>
+   <!-- もしコメントしたユーザーが今ログインしているユーザーと同一人物なら-->
     <% if book_comment.user == current_user %>
    <td>
-    <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete, remote: true %>
+    <!-- コメント削除ボタンを表示する-->
+    <%= link_to "Destroy", book_book_comment_path(book, book_comment), method: :delete, remote: true %>
     <% end %>
    </td>
   </tr>

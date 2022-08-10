@@ -8,37 +8,53 @@
   </tr>
  </thead>
  <tbody>
+  <!-- 投稿されたbookの中から一つ一つ並べる-->
   <% books.each do |book| %>
   <tr>
    <td>
+    <!--投稿したユーザーのプロフィール画像-->
     <%= link_to(book.user) do %>
     <%= image_tag book.user.get_profile_image, size:'50×50' %>
     <% end %>
    </td>
 
    <td>
+    <!--投稿された本のタイトル -->
     <%= link_to book.title,book %>
    </td>
    <td>
+    <!-- 投稿された本のopinion -->
     <%= book.body %>
     </td>
     <td>
+     <!-- 投稿された本に付けられているタグ -->
+     <!-- 複数あるとして一つ一つタグを並べるためのeach -->
      <% book.tags.each do |tag| %>
-     <%= link_to search_path(word: tag.tag_name, model:"tag", method: "perfect") do %>
+     <!-- リンクのパスについてはここではネットで見たtag_books_path(tag_id:tag.idとしておく-->
+     <%= link_to tag_books_path(tag_id: tag.id) do %>
+     <!-- tagについているカラムがtag_nameなのでtag.tag_name -->
      <%= tag.tag_name %>
+     <!-- link doに対するend -->
      <% end %>
+     <!-- tagを取り出すeachに対するend -->
      <% end %>
     </td>
+    <!--投稿された本にいいねするボタン -->
    <td class="favorite_buttons_<%= book.id %>">
    <%= render 'favorites/favorite', book: book %>
    </td>
    <td>
+    <!-- 投稿された本に付けられたコメントの数 -->
    コメント数 : <%= book.book_comments.count %>
    </td>
-
+   <!-- 投稿された本の星評価 -->
    <td>
      <div class="star-rate">
+      <!-- どの投稿に対する評価なのかをidを持たせて判別-->
       <div id="star-rate-<%= book.id %>"></div>
+       <!-- #star-rate...は上で持たせたid名、クラスだったら.始まり-->
+       <!-- readonlyで読み込み専用にし、編集できないようにする-->
+       <!-- scoreオプションで評価内容を取得-->
        <script>
        $('#star-rate-<%= book.id %>').raty({
          size      : 36,
@@ -52,6 +68,7 @@
     </div>
    </td>
   </tr>
+  <!-- book.eachに対するend -->
   <% end %>
  </tbody>
 
