@@ -1,4 +1,7 @@
-$('.comment-textarea').val("")
-$('.book-comments-counter').html("<%= j(render 'book_comments/counter', book: @comment.book) %>")
+
+$('.book_comments_counter').html("<%= j(render 'book_comments/counter', book: @comment.book) %>")
 $('.new-comment').html("<%= j(render 'book_comments/comment', book: @comment.book) %>");
+$('.comment-textarea').val("")
+
+
 

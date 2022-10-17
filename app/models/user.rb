@@ -18,7 +18,6 @@ class User < ApplicationRecord
  #自分をフォローしている人を表示
  has_many :followers, through: :reverse_of_relationships, source: :follower
 
-
  has_one_attached :profile_image
 
  validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
@@ -29,14 +28,14 @@ class User < ApplicationRecord
  end
 
  #フォローした時の処理
- def follow(user)
-   relationships.create(followed_id: user.id)
+ def follow(user_id)
+   relationships.create(followed_id: user_id)
  end
 
 #フォローを外す時の処理
 #フォローしてた相手のidを探して削除する
- def unfollow(user)
-   relationships.find_by(followed_id: user.id).destroy
+ def unfollow(user_id)
+   relationships.find_by(followed_id: user_id).destroy
  end
 
 #フォローしているかどうかを判定する

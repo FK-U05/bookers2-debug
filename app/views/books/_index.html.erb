@@ -40,9 +40,10 @@
      <% end %>
     </td>
     <!--投稿された本にいいねするボタン -->
-   <td class="favorite_buttons_<%= book.id %>">
-   <%= render 'favorites/favorite', book: book %>
+   <td class=<%= "favorite-" + book.id.to_s %> >
+     <%= render "favorites/favorite", book: book %>
    </td>
+
    <td>
     <!-- 投稿された本に付けられたコメントの数 -->
    コメント数 : <%= book.book_comments.count %>

@@ -73,14 +73,12 @@
        <% end %>
       </td>
 
-      <td>
-       <div class="favorite_buttons_<%= @book.id %>">
       <td class=<%= "favorite-" + @book.id.to_s %> >
        <%= render "favorites/favorite", book: @book %>
       </td>
 
       <td class="book_comments_counter">
-       <% render "book_comments/counter", book: @book %>
+       <%= render "book_comments/counter", book: @book %>
       </td>
 
       <td>
@@ -109,7 +107,7 @@
        <%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %>
       </td>
       <td>
-       <%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？'}, class: "btn btn-sm btn-danger" %>
+       <%= link_to 'Destroy', book_path(@book), method: :delete, data: { confirm: '本当に消しますか？'}, class: "btn btn-sm btn-danger" %>
       </td>
       <% end %>
      </tr>
