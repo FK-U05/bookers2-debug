@@ -32,19 +32,19 @@ class User < ApplicationRecord
    relationships.create(followed_id: user_id)
  end
 
-#フォローを外す時の処理
-#フォローしてた相手のidを探して削除する
+ #フォローを外す時の処理
+ #フォローしてた相手のidを探して削除する
  def unfollow(user_id)
    relationships.find_by(followed_id: user_id).destroy
  end
 
-#フォローしているかどうかを判定する
+ #フォローしているかどうかを判定する
  def following?(user)
    followings.include?(user)
  end
 
-#検索方法の分岐#
-#送られてきたseachによって分岐させる#
+ #検索方法の分岐#
+ #送られてきたseachによって分岐させる#
   def self.looks(search, word)
     #perfect_matchは完全一致#
     if search == "perfect_match"

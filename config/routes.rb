@@ -5,8 +5,6 @@ Rails.application.routes.draw do
   get 'home/about'=> 'homes#about',as:'home_about'
   #検索ボタンを押すとsearchesコントローラのsearchアクションを起こすルーティング#
   get 'search'=>'searches#search'
-  get 'relationships/create'
-  get 'relationships/destroy'
 
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
    resource :favorites, only: [:create, :destroy]
