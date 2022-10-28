@@ -112,13 +112,13 @@
       <% end %>
      </tr>
     </table>
-    <!-- コメント一覧 -->
+    <!-- コメントフォーム -->
     <div class="new-comment">
-    <%= render 'book_comments/comment', book: @book %>
+     <%= render 'book_comments/form', book: @book, book_comment: @book_comment %>
     </div>
-    <!-- コメントフォーム-->
+    <!-- コメント一覧-->
     <div class="comments-area">
-    <%= render 'book_comments/form', book: @book, book_comment: @book_comment %>
+     <%= render 'book_comments/comment', book: @book %>
     </div>
 
   </div>
