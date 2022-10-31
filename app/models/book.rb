@@ -4,6 +4,7 @@ class Book < ApplicationRecord
   has_many :book_comments,dependent: :destroy
   has_many :tagmaps, dependent: :destroy
   has_many :tags, through: :tagmaps
+  has_many :view_counts, dependent: :destroy
 
   validates :title,presence:true
   validates :body,presence:true,length:{maximum:200}
@@ -15,7 +16,7 @@ class Book < ApplicationRecord
   #created_at(投稿日)やstarはカラム名、descは昇順の意味#
   scope :latest, -> {order(created_at: :desc)}
   scope :star_count, -> {order(star: :desc)}
- 
+
   #favoriteテーブルにuserが存在していればいいねを解除する、存在しなければいいねする#
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?

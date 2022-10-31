@@ -100,6 +100,12 @@
       });
      </script>
      </div>
+
+     <!-- この投稿の閲覧数 -->
+     <td>
+      <p>閲覧数:<%= @book_detail.view_counts.count %></p>
+     </td>
+
      </td>
        <!-- 今ログインしているユーザーと投稿ユーザーが同一人物同じIDなら-->
        <% if @user == current_user %>
