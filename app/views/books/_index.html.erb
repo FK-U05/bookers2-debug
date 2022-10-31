@@ -57,18 +57,20 @@
        <!-- readonlyで読み込み専用にし、編集できないようにする-->
        <!-- scoreオプションで評価内容を取得-->
        <script>
-       $('#star-rate-<%= book.id %>').raty({
-         size      : 36,
-         starOff   : '<%= asset_path('star-off.png') %>',
-         starOn    : '<%= asset_path('star-on.png') %>',
-         half      : false,
-         readOnly: true,
-         score: <%= book.star %>,
-       });
+        $('#star-rate-<%= book.id %>').raty({
+          size      : 36,
+          starOff   : '<%= asset_path('star-off.png') %>',
+          starOn    : '<%= asset_path('star-on.png') %>',
+          half      : false,
+          readOnly: true,
+          score: <%= book.star %>,
+        });
        </script>
     </div>
    </td>
-  </tr>
+   <td>
+     閲覧数:<%= book.view_counts.count %>
+   </td>
   <!-- book.eachに対するend -->
   <% end %>
  </tbody>
